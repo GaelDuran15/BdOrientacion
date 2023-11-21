@@ -1,0 +1,5 @@
+DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("idRegistroPsicologia");
+        modelo.addColumn("NomAlum");
+        modelo.addColumn("Fecha");
+        modelo.addColumn("Especialidad")
