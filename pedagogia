@@ -1,0 +1,221 @@
+package proyectoorientacion;
+
+import java.sql.Statement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
+public class pedagogia extends javax.swing.JFrame {
+
+    conexionMysql con = new conexionMysql();
+    Connection cn = con.conectar();
+
+    
+    public pedagogia() {
+        initComponents();
+        mostrarDatos();
+    }
+
+    private void mostrarDatos() {
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("idRegistroPsicologia");
+        modelo.addColumn("NomAlum");
+        modelo.addColumn("Fecha");
+        modelo.addColumn("Grupo");
+        modelo.addColumn("Especialidad");
+        modelo.addColumn("Semestre");
+        modelo.addColumn("Motivo");
+        modelo.addColumn("Observacion");
+
+        registropedagogia.setModel(modelo);
+        String consultasql = "SELECT *FROM registropedagogia";
+        String data[] = new String[8];
+        Statement st;
+        try {
+            st = cn.createStatement();
+            ResultSet rs = st.executeQuery(consultasql);
+
+            while (rs.next()) {
+                data[0] = rs.getString(1);
+                data[1] = rs.getString(2);
+                data[2] = rs.getString(3);
+                data[3] = rs.getString(4);
+                data[4] = rs.getString(5);
+                data[5] = rs.getString(6);
+                data[6] = rs.getString(7);
+                data[7] = rs.getString(8);
+                modelo.addRow(data);
+            }
+        } catch (SQLException e) {
+            System.out.println("ERROR: " + e);
+        }
+    }
+
+    
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    private void initComponents() {
+
+        jScrollPane1 = new javax.swing.JScrollPane();
+        registropedagogia = new javax.swing.JTable();
+        btnRegistrar = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
+        txtFecha = new javax.swing.JTextField();
+        txtNomAlumno = new javax.swing.JTextField();
+        txtGrupo = new javax.swing.JTextField();
+        txtEspecialidad = new javax.swing.JTextField();
+        txtSemestre = new javax.swing.JTextField();
+        txtObservacion = new javax.swing.JTextField();
+        txtMotivo = new javax.swing.JTextField();
+        txtID = new javax.swing.JTextField();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        registropedagogia.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        registropedagogia.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                registropedagogiaMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(registropedagogia);
+
+        btnRegistrar.setText("REGISTRAR");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
+
+        btnActualizar.setText("ACTUALIZAR");
+
+        txtFecha.setText("jTextField1");
+
+        txtNomAlumno.setText("jTextField1");
+
+        txtGrupo.setText("jTextField1");
+
+        txtEspecialidad.setText("jTextField1");
+
+        txtSemestre.setText("jTextField1");
+
+        txtObservacion.setText("jTextField1");
+
+        txtMotivo.setText("jTextField1");
+
+        txtID.setText("jTextField1");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnRegistrar)
+                                .addGap(21, 21, 21)
+                                .addComponent(btnActualizar))
+                            .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtObservacion, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNomAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSemestre, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(88, 88, 88)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(23, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtNomAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtSemestre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(13, 13, 13)
+                        .addComponent(txtMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtObservacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(53, 53, 53)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnRegistrar)
+                            .addComponent(btnActualizar))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 16, 16))))
+        );
+
+        pack();
+    }// </editor-fold>                        
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        try {
+            PreparedStatement ps = cn.prepareStatement("INSERT INTO registropsicologia (NomAlum,Fecha,Grupo,Especialidad,Semestre,Problema,Observacion,TelAlum,NomPsicologa,ProxCita) VALUES (?,?,?,?,?,?,?,?,?,?)");
+            ps.setString(1, txtNomAlumno.getText());
+            ps.setString(2, txtFecha.getText());
+            ps.setString(3, txtGrupo.getText());
+            ps.setString(4, txtEspecialidad.getText());
+            ps.setString(5, txtSemestre.getText());
+            ps.setString(6, txtMotivo.getText());
+            ps.setString(6, txtObservacion.getText());
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(rootPane, "DATOS GUARDADOS CORRECTAMENTE");
+            mostrarDatos();
+            txtNomAlumno.setText("");
+            txtFecha.setText("");
+            txtGrupo.setText("");
+            txtEspecialidad.setText("");
+            txtSemestre.setText("");
+            txtMotivo.setText("");
+            txtObservacion.setText("");
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(rootPane, "ERROR AL REGISTRAR CONTACTO " + e);
+        }
+    }                                            
+
+    private void registropedagogiaMouseClicked(java.awt.event.MouseEvent evt) {                                               
+        int fila = registropedagogia.getSelectedRow();
+        this.txtID.setText(registropedagogia.getValueAt(fila, 0).toString());
+        this.txtNomAlumno.setText(registropedagogia.getValueAt(fila, 1).toString());
+        this.txtFecha.setText(registropedagogia.getValueAt(fila, 2).toString());
+        this.txtGrupo.setText(registropedagogia.getValueAt(fila, 3).toString());
+        this.txtEspecialidad.setText(registropedagogia.getValueAt(fila, 4).toString());
+        this.txtSemestre.setText(registropedagogia.getValueAt(fila, 5).toString());
+        this.txtMotivo.setText(registropedagogia.getValueAt(fila, 6).toString());
+        this.txtObservacion.setText(registropedagogia.getValueAt(fila, 6).toString());
+    }                                              
