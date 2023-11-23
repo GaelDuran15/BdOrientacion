@@ -1,0 +1,83 @@
+package proyectoorientacion;
+import java.sql.Statement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+ 
+public class AtencionPadres extends javax.swing.JFrame {
+    
+    conexionMysql con = new conexionMysql();
+    Connection cn = con.conectar();
+    
+    public AtencionPadres() {
+        initComponents();
+        mostrarDatos();
+    }
+
+    private void mostrarDatos() {
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("idRegistroAtencionPadre");
+        modelo.addColumn("NomAlum");
+        modelo.addColumn("Fecha");
+        modelo.addColumn("Grupo");
+        modelo.addColumn("Especialidad");
+        modelo.addColumn("Semestre");
+        modelo.addColumn("NomPadre");
+        modelo.addColumn("Asunto");
+
+        AtencionPadres.setModel(modelo);
+        String consultasql = "SELECT *FROM AtencionPadres";
+        String data[] = new String[8];
+        Statement st;
+        try {
+            st = cn.createStatement();
+            ResultSet rs = st.executeQuery(consultasql);
+
+            while (rs.next()) {
+                data[0] = rs.getString(1);
+                data[1] = rs.getString(2);
+                data[2] = rs.getString(3);
+                data[3] = rs.getString(4);
+                data[4] = rs.getString(5);
+                data[5] = rs.getString(6);
+                data[6] = rs.getString(7);
+                data[7] = rs.getString(8);
+                modelo.addRow(data);
+            }
+        } catch (SQLException e) {
+            System.out.println("ERROR: " + e);
+        }
+    }
+
+ // registrar
+         try {
+            PreparedStatement ps = cn.prepareStatement("INSERT INTO AtencionPadres (NomAlum,Fecha,Grupo,Especialidad,Semestre,NomPadre,Asunto) VALUES (?,?,?,?,?,?,?)");
+            ps.setString(1, txtNomAlumno.getText());
+            ps.setString(2, txtFecha.getText());
+            ps.setString(3, txtGrupo.getText());
+            ps.setString(4, txtEspecialidad.getText());
+            ps.setString(5, txtSemestre.getText());
+            ps.setString(6, txtNomPadre.getText());
+            ps.setString(6, txtAsunto.getText());
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(rootPane, "DATOS GUARDADOS CORRECTAMENTE");
+            mostrarDatos();
+            txtNomAlumno.setText("");
+            txtFecha.setText("");
+            txtGrupo.setText("");
+            txtEspecialidad.setText("");
+            txtSemestre.setText("");
+            txtMotivo.setText("");
+            txtObservacion.setText("");
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(rootPane, "ERROR AL REGISTRAR CONTACTO " + e);
+        }
+    }         
