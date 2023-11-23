@@ -73,6 +73,51 @@ public class AtencionAlumnos extends javax.swing.JFrame {
             txtSemestre.setText("");
             txtProblema.setText("");
             txtObservacion.setText("");
+
+//Seleccionar
+
+ private void AtencionAlumnosMouseClicked(java.awt.event.MouseEvent evt) {                                                
+       int fila = AtencionAlumnos.getSelectedRow();
+        this.txtID.setText(registropsicologia.getValueAt(fila, 0).toString());
+        this.txtNomAlumno.setText(registropsicologia.getValueAt(fila, 1).toString());
+        this.txtFecha.setText(registropsicologia.getValueAt(fila, 2).toString());
+        this.txtGrupo.setText(registropsicologia.getValueAt(fila, 3).toString());
+        this.txtEspecialidad.setText(registropsicologia.getValueAt(fila, 4).toString());
+        this.txtSemestre.setText(registropsicologia.getValueAt(fila, 5).toString());
+        this.txtProblema.setText(registropsicologia.getValueAt(fila, 6).toString());
+        this.txtObvservacion.setText(registropsicologia.getValueAt(fila, 7).toString());
+       
+    }                                               
+
+    private void jMenuItemRegresarActionPerformed(java.awt.event.ActionEvent evt) {                                                  
+
+    }                                                 
+
+//eliminar
+
+    private void ELIMINARActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        try{
+           PreparedStatement ps = cn.prepareStatement("DELETE FROM AtencionAlumnos where idAtencionAlumnos='" + txtID.getText() + "'");
+           int indice = ps.executeUpdate();
+           if(indice>0){
+               mostrarDatos();
+
+           }else{
+               JOptionPane.showMessageDialog(rootPane, "No se selecciono una fila");
+           }
+       }catch (SQLException e){
+           JOptionPane.showMessageDialog(rootPane, "Error al eliminar datos" + e);
+       }
+        txtID.setText("");
+        txtNomAlumno.setText("");
+            txtFecha.setText("");
+            txtGrupo.setText("");
+            txtEspecialidad.setText("");
+            txtSemestre.setText("");
+            txtProblema.setText("");
+            txtObvservacion.setText("");
+           
+    }                                        
             
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(rootPane, "ERROR AL REGISTRAR CONTACTO " + e);
