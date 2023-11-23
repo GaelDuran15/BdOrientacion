@@ -100,7 +100,7 @@ public class AtencionPadres extends javax.swing.JFrame {
 
     }    
 
-eliminar
+//eliminar
     private void ELIMINARActionPerformed(java.awt.event.ActionEvent evt) {                                         
         try{
            PreparedStatement ps = cn.prepareStatement("DELETE FROM AtencionPadres where idAtencionPadres ='" + txtID.getText() + "'");
