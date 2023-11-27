@@ -10,20 +10,11 @@ import javax.swing.table.DefaultTableModel;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
- 
-public class AtencionPadres extends javax.swing.JFrame {
-    
-    conexionMysql con = new conexionMysql();
-    Connection cn = con.conectar();
-    
-    public AtencionPadres() {
-        initComponents();
-        mostrarDatos();
-    }
 
-    private void mostrarDatos() {
+//Mostrar
+ private void mostrarDatos() {
         DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("idRegistroAtencionPadre");
+        modelo.addColumn("idRegistroAtencionPadres");
         modelo.addColumn("NomAlum");
         modelo.addColumn("Fecha");
         modelo.addColumn("Grupo");
@@ -31,15 +22,15 @@ public class AtencionPadres extends javax.swing.JFrame {
         modelo.addColumn("Semestre");
         modelo.addColumn("NomPadre");
         modelo.addColumn("Asunto");
-
-        AtencionPadres.setModel(modelo);
-        String consultasql = "SELECT *FROM AtencionPadres";
+        
+        registroatencionpadres.setModel(modelo);
+        String consultasql = "SELECT *FROM registroatencionpadres";
         String data[] = new String[8];
         Statement st;
+        
         try {
             st = cn.createStatement();
             ResultSet rs = st.executeQuery(consultasql);
-
             while (rs.next()) {
                 data[0] = rs.getString(1);
                 data[1] = rs.getString(2);
@@ -56,69 +47,67 @@ public class AtencionPadres extends javax.swing.JFrame {
         }
     }
 
- // registrar
-         try {
-            PreparedStatement ps = cn.prepareStatement("INSERT INTO AtencionPadres (NomAlum,Fecha,Grupo,Especialidad,Semestre,NomPadre,Asunto) VALUES (?,?,?,?,?,?,?)");
-            ps.setString(1, txtNomAlumno.getText());
+ //Registra
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        //
+        try {
+            PreparedStatement ps = cn.prepareStatement("INSERT INTO registroatencionpadres (NomAlum,Fecha,Grupo,Especialidad,Semestre,NomPadre,Asunto) VALUES (?,?,?,?,?,?,?)");
+            ps.setString(1, txtNomAlum.getText());
             ps.setString(2, txtFecha.getText());
             ps.setString(3, txtGrupo.getText());
             ps.setString(4, txtEspecialidad.getText());
             ps.setString(5, txtSemestre.getText());
             ps.setString(6, txtNomPadre.getText());
-            ps.setString(6, txtAsunto.getText());
+            ps.setString(7, txtAsunto.getText());
             ps.executeUpdate();
             JOptionPane.showMessageDialog(rootPane, "DATOS GUARDADOS CORRECTAMENTE");
             mostrarDatos();
-            txtNomAlumno.setText("");
+            txtNomAlum.setText("");
             txtFecha.setText("");
             txtGrupo.setText("");
             txtEspecialidad.setText("");
             txtSemestre.setText("");
-            txtMotivo.setText("");
-            txtObservacion.setText("");
-            
+            txtNomPadre.setText("");
+            txtAsunto.setText("");
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(rootPane, "ERROR AL REGISTRAR CONTACTO " + e);
+            JOptionPane.showMessageDialog(rootPane, "ERROR AL REGISTRAR " + e);
         }
-    }         
 
-//seleccionar
- private void AtencionPadresMouseClicked(java.awt.event.MouseEvent evt) {                                                
-       int fila = AtencionPadres.getSelectedRow();
-        this.txtID.setText(registropsicologia.getValueAt(fila, 0).toString());
-        this.txtNomAlumno.setText(registropsicologia.getValueAt(fila, 1).toString());
-        this.txtFecha.setText(registropsicologia.getValueAt(fila, 2).toString());
-        this.txtGrupo.setText(registropsicologia.getValueAt(fila, 3).toString());
-        this.txtEspecialidad.setText(registropsicologia.getValueAt(fila, 4).toString());
-        this.txtSemestre.setText(registropsicologia.getValueAt(fila, 5).toString());
-        this.txtProblema.setText(registropsicologia.getValueAt(fila, 6).toString());
-        this.txtObvservacion.setText(registropsicologia.getValueAt(fila, 7).toString());
-        
-    }                                               
+    }                
 
-    private void jMenuItemRegresarActionPerformed(java.awt.event.ActionEvent evt) {                                                  
+  //Seleccionar
+    
+    private void registroatencionpadresMouseClicked(java.awt.event.MouseEvent evt) {                                                    
+        // TODO add your handling code here:
+        int fila = registroatencionpadres.getSelectedRow();
+        this.idregistroatencionpadres.setText(registroatencionpadres.getValueAt(fila, 0).toString());
+        this.txtNomAlum.setText(registroatencionpadres.getValueAt(fila, 1).toString());
+        this.txtFecha.setText(registroatencionpadres.getValueAt(fila, 2).toString());
+        this.txtGrupo.setText(registroatencionpadres.getValueAt(fila, 3).toString());
+        this.txtEspecialidad.setText(registroatencionpadres.getValueAt(fila, 4).toString());
+        this.txtSemestre.setText(registroatencionpadres.getValueAt(fila, 5).toString());
+        this.txtNomPadre.setText(registroatencionpadres.getValueAt(fila, 6).toString());
+        this.txtAsunto.setText(registroatencionpadres.getValueAt(fila, 7).toString());
+    }                                                   
 
-    }    
-
-//eliminar
-    private void ELIMINARActionPerformed(java.awt.event.ActionEvent evt) {                                         
+ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
         try{
-           PreparedStatement ps = cn.prepareStatement("DELETE FROM AtencionPadres where idAtencionPadres ='" + txtID.getText() + "'");
-           int indice = ps.executeUpdate();
-           if(indice>0){
-               mostrarDatos();
-
-           }else{
-               JOptionPane.showMessageDialog(rootPane, "No se selecciono una fila");
-           }
-       }catch (SQLException e){
-           JOptionPane.showMessageDialog(rootPane, "Error al eliminar datos" + e);
-       }
-        txtID.setText("");
-        txtNomAlumno.setText("");
-            txtFecha.setText("");
-            txtGrupo.setText("");
-            txtEspecialidad.setText("");
-            txtSemestre.setText("");
-            txtProblema.setText("");
-            txtObvservacion.setText("");
+            PreparedStatement ps = cn.prepareStatement("DELETE FROM registroatencionpadres where idregistroatencionpadres ='" + idregistroatencionpadres.getText() + "'");
+            int indice = ps.executeUpdate();
+            if(indice>0){
+                mostrarDatos();
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "No se selecciono una fila");
+            }
+        }catch (SQLException e){
+            JOptionPane.showMessageDialog(rootPane, "Error al eliminar datos" + e);
+        }
+        idregistroatencionpadres.setText("");
+        txtNomAlum.setText("");
+        txtFecha.setText("");
+        txtGrupo.setText("");
+        txtEspecialidad.setText("");
+        txtSemestre.setText("");
+        txtNomPadre.setText("");
+        txtAsunto.setText("");
+    }                             
