@@ -1,0 +1,12 @@
+private void jMenuItemMostrarActionPerformed(java.awt.event.ActionEvent evt) {                                                 
+        // Mostrar contacto
+
+        Agenda registros = new Agenda();
+        this.setVisible(false);
+        registros.setVisible(true);
+
+    }                                                
+
+    private void jMenuItemSalirActionPerformed(java.awt.event.ActionEvent evt) {                                               
+        System.exit(0);
+    }   
